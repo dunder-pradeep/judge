@@ -55,4 +55,11 @@ class IOManager:
             os.remove(os.path.join(ENV_PATH, 'input.txt'))
 
     def get_mult_input(self,FNAME,ENV_PATH):
-        pass
+        instr = ""
+        while True:
+            inp = input()
+            if inp == "\'":
+                break
+            instr += inp + '\n'
+        with open(os.path.join(ENV_PATH,FNAME+".txt"),"w+") as f:
+            f.write(instr)

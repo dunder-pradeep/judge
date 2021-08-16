@@ -60,4 +60,5 @@ class EvalManager:
         #                ofile.write(subprocess.run("./a.out",input=ifile.read(),capture_output=True).stdout)
         time2 = time.time()
         print(f"Execution time : {time2 - time1}")
+        print()
         return True
