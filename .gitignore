@@ -1,2 +1,5 @@
 env/
 idea/
+.idea
+__pycache__/
+template.cpp
