@@ -5,7 +5,7 @@ import time
 
 
 class EvalManager:
-    def __init__(self, LANG, TIM_LIMIT=1000, MEM_LIMIT=256):
+    def __init__(self, LANG, TIM_LIMIT=1, MEM_LIMIT=256):
         self.language = LANG
         self.limits = (TIM_LIMIT, MEM_LIMIT)
 
