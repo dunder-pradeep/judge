@@ -2,7 +2,7 @@ import os
 import subprocess
 import sys
 import time
-
+from UI import print_color_coded_text
 
 class EvalManager:
     def __init__(self, LANG, TIM_LIMIT=1, MEM_LIMIT=256):
@@ -17,16 +17,15 @@ class EvalManager:
                 subprocess.call(["g++", FPATH, "-o", CPATH])
                 return True
             except:
-                print(" compilation failed !!")
-                print(" executed from : ", os.curdir)
-                print(f" g++ {FPATH} -o a.out")
+                print_color_coded_text(" compilation failed !!",'r')
+                print_color_coded_text(" executed from : "+os.curdir,'y')
+                print_color_coded_text(f" g++ {FPATH} -o a.out",'y')
                 return False
 
     def run(self,INP_NAME,ENV_PATH):
         inp = os.path.join(ENV_PATH,INP_NAME)
         out = os.path.join(ENV_PATH,"output.txt")
         exec_dir = os.path.join(ENV_PATH,"a.out")
-        print("")
         time1 = time.time()
         # subprocess.run("./a.out",input=inp,stdout=out)
         with open(inp, 'r') as inpt:
@@ -40,17 +39,17 @@ class EvalManager:
                             maxmemused = max(maxmemused, int(num))
                     if maxmemused > self.limits[1]*1000:
                         print()
-                        print("Memory limit exceeded..!")
+                        print_color_coded_text("Memory limit exceeded..!","r")
                         proc.kill()
                         return False
-                    print("Max Memory Usage : ", maxmemused, "KB", end='\r')
+                    print_color_coded_text("Max Memory Usage : "+ str(maxmemused)+ "KB","y", end='\r',sp=1)
 
                     sys.stdout.flush()
 
                     # check time limit...
                     if time.time() - time1 > self.limits[0]:
                         print()
-                        print("Time Limit Exceeded .. !")
+                        print_color_coded_text("Time Limit Exceeded .. !","r")
                         proc.kill()
                         return False
                     # time.sleep(0.001)
@@ -59,6 +58,7 @@ class EvalManager:
         #            with open(out,"wb") as ofile:
         #                ofile.write(subprocess.run("./a.out",input=ifile.read(),capture_output=True).stdout)
         time2 = time.time()
-        print(f"Execution time : {time2 - time1}")
+        print_color_coded_text(f"Execution time : {time2 - time1}","y",sp=1)
+        print()
         print()
         return True

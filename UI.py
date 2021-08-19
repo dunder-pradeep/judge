@@ -1,5 +1,15 @@
 from colorama import Fore,Back,Style
 
+def print_color_coded_text(string,color,end="",sp = 0):
+    sps = sp*" "
+    if color == "r":
+        print(f"{sps}{Fore.RED}{string}",end=end)
+    elif color == "g":
+        print(f"{sps}{Fore.GREEN}{string}",end=end)
+    elif color == "y":
+        print(f"{sps}{Fore.YELLOW}{string}",end=end)
+    print(Style.RESET_ALL,end="")
+
 class UIManager:
     def __init__(self):
         self.status = "[judge] : "
@@ -22,4 +32,6 @@ class UIManager:
         print("bad command refer man")
 
     def draw_line(self):
-        print("#"*60)
+        print()
+        print_color_coded_text("#"*60,"y")
+        print()

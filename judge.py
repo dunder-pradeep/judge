@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 from IO import IOManager
-from UI import UIManager
+from UI import UIManager,print_color_coded_text
 from EVAL import EvalManager
 
 # defaults ..
@@ -28,6 +28,11 @@ def print_output():
         print(f.read())
         UI.draw_line()
 
+def print_input(inp):
+    with open(os.path.join(ENV_PATH,inp),"r") as f:
+        print_color_coded_text("Input : ","r")
+        print()
+        print_color_coded_text(f.read(),"r")
 
 # main loop
 while True:
@@ -74,7 +79,9 @@ while True:
 
         if args[0] == "run":
             if Eval.compile(args[1], ENV_PATH):
+                UI.draw_line()
                 if Eval.run("input.txt", ENV_PATH):
+                    print_input("input.txt")
                     print_output()
 
     elif len(args) == 3:
@@ -82,9 +89,13 @@ while True:
             if not Eval.compile(args[1], ENV_PATH):
                 break
             if args[2] == "all":
+                UI.draw_line()
                 for f in os.listdir(ENV_PATH):
                     if f.startswith("in") and Eval.run(f, ENV_PATH):
+                        print_input(f)
                         print_output()
             else:
+                UI.draw_line()
                 if Eval.run(args[2] + ".txt", ENV_PATH):
+                    print_input("input.txt")
                     print_output()
